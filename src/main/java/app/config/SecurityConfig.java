@@ -20,37 +20,17 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         //Diable csrf
-        //http.csrf(customizer -> customizer.disable());
-
-
-        //Authentication needed for any request
-        http.authorizeHttpRequests(requests -> requests.anyRequest().authenticated());
-
-        //Enabling login with default page
-        http.formLogin(Customizer.withDefaults());
-
-        //Enabling basic authentication
-        http.httpBasic(Customizer.withDefaults());
-
-        // Disable session
-        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-
-
-        // Example of Lambda method expanded from the above code
-        Customizer<CsrfConfigurer<HttpSecurity>> customCsrf = new Customizer<CsrfConfigurer<HttpSecurity>>() {
-            @Override
-            public void customize(CsrfConfigurer<HttpSecurity> customizer) {
-                customizer.disable();
-            }
-        };
-        http.csrf(customCsrf);
-
-
-
-
-
-        return http.build();
-
+        return http
+                //Disabling csrf
+                .csrf(customizer -> customizer.disable())
+                //Authentication needed for any request
+                .authorizeHttpRequests(requests -> requests.anyRequest().authenticated())
+                //Enabling login with default page
+                .formLogin(Customizer.withDefaults())
+                //Enabling basic authentication
+                .httpBasic(Customizer.withDefaults())
+                // Disable session
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .build();
     }
 }
