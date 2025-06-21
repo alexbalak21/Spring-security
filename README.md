@@ -9,6 +9,8 @@ A secure web application built with Spring Boot and Spring Security, demonstrati
 - RESTful API endpoints
 - Secure password storage
 - JWT (JSON Web Token) support (if implemented)
+- H2 in-memory database
+- Spring Data JPA for data access
 
 ## Prerequisites
 
@@ -60,8 +62,25 @@ src/main/java/app/spring/
 ├── config/                   # Configuration classes
 ├── controller/               # REST controllers
 ├── dto/                      # Data Transfer Objects
+├── entity/                   # JPA entities
+├── repository/               # JPA repositories
 └── security/                 # Security configurations
 ```
+
+## Database Access
+
+The application uses H2 in-memory database with the following access details:
+
+- **H2 Console URL**: http://localhost:8080/h2-console
+- **JDBC URL**: jdbc:h2:mem:securitydb
+- **Username**: sa
+- **Password**: password
+
+To access the H2 console:
+1. Make sure the application is running
+2. Open http://localhost:8080/h2-console in your browser
+3. Enter the JDBC URL, username, and password from above
+4. Click 'Connect'
 
 ## Security Configuration
 
@@ -71,6 +90,15 @@ The application uses Spring Security with:
 - Session management
 - Password encoding
 - Role-based authorization
+
+## Data Access
+
+The application uses Spring Data JPA with the following features:
+- H2 in-memory database
+- Automatic schema generation
+- JPA repositories
+- Entity relationships
+- Custom queries
 
 ## Contributing
 
