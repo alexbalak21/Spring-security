@@ -1,0 +1,19 @@
+#PowerShell command : [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("alex:password"))
+
+###LOGIN BASIC
+GET http://localhost:8080/
+#Base Authentication Header
+Authorization: Basic YWxleDpwYXNzd29yZA==
+Content-Type: application/json
+
+{}
+
+
+###LOGIN
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+    "username": "alex",
+    "password": "password"
+}
