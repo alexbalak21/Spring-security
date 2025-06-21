@@ -1,57 +1,93 @@
 package app.spring.config;
 
+import app.spring.repository.UserRepository;
+import app.spring.security.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Security configuration class that sets up Spring Security for the application.
  * Configures authentication, authorization, and security filters.
  */
 @Configuration
-@EnableWebSecurity // Enables Spring Security's web security support
+@EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
+
+    private static final String[] AUTH_WHITELIST = {
+        "/api/auth/**",
+        "/v3/api-docs/**",
+        "/swagger-ui/**",
+        "/swagger-ui.html"
+    };
 
     /**
      * Configures the security filter chain that defines the security constraints
      * for different HTTP requests.
-     *
-     * @param http the HttpSecurity to configure
-     * @return the configured SecurityFilterChain
-     * @throws Exception if an error occurs during configuration
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                // Disable CSRF as we're using JWT for authentication
-                .csrf(AbstractHttpConfigurer::disable)
-                
-                // Configure URL authorization
-                .authorizeHttpRequests(requests ->
-                        requests
-                                // Allow unauthenticated access to login endpoint
-                                .requestMatchers("/api/login").permitAll()
-                                // Require authentication for all other requests
-                                .anyRequest().authenticated()
-                )
-                // Configure stateless session management (for JWT)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // Disable basic authentication
-                .httpBasic(AbstractHttpConfigurer::disable)
-                // Disable form login as we're using JWT
-                .formLogin(AbstractHttpConfigurer::disable)
-                .build();
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            AuthenticationProvider authenticationProvider) throws Exception {
+        http
+            // Enable CORS and disable CSRF
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(AbstractHttpConfigurer::disable)
+            
+            // Configure URL authorization
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(AUTH_WHITELIST).permitAll()
+                .anyRequest().authenticated()
+            )
+            
+            // Configure authentication provider
+            .authenticationProvider(authenticationProvider)
+            
+            // Configure stateless session management
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            
+            // Disable basic authentication and form login as we're using JWT
+            .httpBasic(AbstractHttpConfigurer::disable)
+            .formLogin(AbstractHttpConfigurer::disable);
+
+        return http.build();
+    }
+    
+    /**
+     * CORS configuration to allow requests from the frontend
+     */
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
+        configuration.setAllowCredentials(true);
+        
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     /**
@@ -65,22 +101,18 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
-
-    /**
-     * Configures an in-memory user details service with a default admin user.
-     * In a production environment, this should be replaced with a database-backed implementation.
-     *
-     * @return InMemoryUserDetailsManager with configured users
-     */
+    
     @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        // Create a default admin user (for demonstration purposes only)
-        UserDetails user = User.builder()
-                .username("alex")  // Default username
-                .password(passwordEncoder().encode("password"))  // Encoded password
-                .roles("ADMIN")  // Granted role
-                .build();
-        return new InMemoryUserDetailsManager(user);
+    public UserDetailsService userDetailsService(UserRepository userRepository) {
+        return new UserDetailsServiceImpl(userRepository);
+    }
+    
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder);
+        return authProvider;
     }
 
     /**

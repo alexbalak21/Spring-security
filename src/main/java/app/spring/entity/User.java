@@ -1,17 +1,12 @@
 package app.spring.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class User {
     
     @Id
@@ -30,4 +25,97 @@ public class User {
     private Set<String> roles;
     
     private boolean active = true;
+    
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    public User() {
+    }
+
+    public User(Long id, String username, String password, Set<String> roles, boolean active) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+        this.active = active;
+    }
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
+
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return active == user.active && 
+               Objects.equals(id, user.id) && 
+               Objects.equals(username, user.username) && 
+               Objects.equals(password, user.password) && 
+               Objects.equals(roles, user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, roles, active);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+               "id=" + id +
+               ", username='" + username + '\'' +
+               ", password='[PROTECTED]'" +
+               ", roles=" + roles +
+               ", active=" + active +
+               '}';
+    }
 }

@@ -1,19 +1,102 @@
-#PowerShell command : [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("alex:password"))
+### 1. Health Check
+GET http://localhost:8080/actuator/health
 
-###LOGIN BASIC
-GET http://localhost:8080/
-#Base Authentication Header
-Authorization: Basic YWxleDpwYXNzd29yZA==
+### 2. API Documentation
+GET http://localhost:8080/v3/api-docs
+
+### 3. Swagger UI
+GET http://localhost:8080/swagger-ui.html
+
+### 4. Register New User
+POST http://localhost:8080/api/users
 Content-Type: application/json
 
-{}
+{
+  "username": "testuser",
+  "password": "password123",
+  "roles": ["USER"],
+  "active": true
+}
 
-
-###LOGIN
+### 6. Login with Test User
 POST http://localhost:8080/api/login
 Content-Type: application/json
 
 {
-    "username": "alex",
-    "password": "password"
+  "username": "testuser",
+  "password": "password123"
 }
+
+###LOGIN WRONG USERNAME
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "username": "wronguser",
+  "password": "password123"
+}
+
+### 5. Register Admin User
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123",
+  "roles": ["ADMIN"],
+  "active": true
+}
+
+
+
+### 7. Login with Admin User
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+### 8. Get All Users (Requires Authentication)
+GET http://localhost:8080/api/users
+Authorization: Bearer <your_jwt_token_here>
+
+### 9. Get User by ID (Requires Authentication)
+GET http://localhost:8080/api/users/1
+Authorization: Bearer <your_jwt_token_here>
+
+### 10. Get User by Username (Requires Authentication)
+GET http://localhost:8080/api/users/username/testuser
+Authorization: Bearer <your_jwt_token_here>
+
+### 11. Update User (Requires Authentication)
+PUT http://localhost:8080/api/users/1
+Authorization: Bearer <your_jwt_token_here>
+Content-Type: application/json
+
+{
+  "username": "updateduser",
+  "password": "newpassword123",
+  "roles": ["USER"],
+  "active": true
+}
+
+### 12. Delete User (Requires Admin Role)
+DELETE http://localhost:8080/api/users/2
+Authorization: Bearer <your_admin_jwt_token_here>
+
+### 13. Test Unauthorized Access (Should return 403)
+GET http://localhost:8080/api/users
+
+### 14. Test Invalid Login (Should return 401)
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "username": "nonexistent",
+  "password": "wrongpassword"
+}
+
+### 15. Test H2 Console (if enabled)
+GET http://localhost:8080/h2-console
