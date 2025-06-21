@@ -1,52 +1,57 @@
-# Spring Security Application
+# Spring Security REST API
 
-A secure web application built with Spring Boot and Spring Security, demonstrating authentication and authorization features.
+[![Java](https://img.shields.io/badge/Java-24%2B-blue)](https://www.oracle.com/java/technologies/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.3-green)](https://spring.io/projects/spring-boot)
+[![Spring Security](https://img.shields.io/badge/Spring%20Security-6.5.1-green)](https://spring.io/projects/spring-security)
+
+A secure REST API built with Spring Boot and Spring Security, featuring form-based authentication, role-based authorization, and comprehensive error handling.
+
+## 📚 [View Full Documentation](DOCUMENTATION.md)
 
 ## Features
 
-- User authentication with Spring Security
-- Role-based access control (RBAC)
-- RESTful API endpoints
-- Secure password storage
-- JWT (JSON Web Token) support (if implemented)
-- H2 in-memory database
-- Spring Data JPA for data access
+- 🔐 Form-based authentication
+- 👥 Role-based access control (USER and ADMIN roles)
+- 🛡️ Secure password hashing with BCrypt
+- 📝 Comprehensive error handling
+- 🗄️ H2 in-memory database with Flyway migrations
+- 🔄 RESTful API design
 
-## Prerequisites
+## Quick Start
 
-- Java 24 or later
-- Maven 3.6.3 or later
-- Your favorite IDE (IntelliJ IDEA, Eclipse, VS Code, etc.)
+### Prerequisites
 
-## Getting Started
+- Java 24+
+- Maven 3.6.3+
 
-### Clone the Repository
+### Running the Application
 
 ```bash
+# Clone the repository
 git clone <repository-url>
 cd Spring-security
-```
 
-### Build the Project
-
-```bash
-./mvnw clean install
-```
-
-### Run the Application
-
-```bash
+# Build and run
 ./mvnw spring-boot:run
 ```
 
-The application will start on `http://localhost:8080`
+The application will be available at `http://localhost:8080`
 
-## API Endpoints
+### Default Users
 
-### Authentication
+| Username | Password | Roles     |
+|----------|----------|-----------|
+| admin    | admin    | ROLE_ADMIN|
+| user     | password | ROLE_USER |
 
-- `POST /api/auth/login` - Authenticate and get JWT token
-- `POST /api/auth/register` - Register a new user (if implemented)
+## API Quick Reference
+
+- `POST /api/auth/login` - Authenticate user
+- `POST /api/auth/register` - Register new user
+- `GET /api/home` - Sample protected endpoint
+- `GET /api/users` - List all users (ADMIN only)
+
+For complete API documentation and usage examples, please refer to the [full documentation](DOCUMENTATION.md).
 
 ### Secured Endpoints
 

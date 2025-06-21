@@ -33,11 +33,20 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    /**
+     * List of public endpoints that don't require authentication
+     * These endpoints are accessible without any authentication
+     */
     private static final String[] AUTH_WHITELIST = {
+        // Authentication endpoints
         "/api/auth/**",
+        // API documentation
         "/v3/api-docs/**",
         "/swagger-ui/**",
-        "/swagger-ui.html"
+        "/swagger-ui.html",
+        // Actuator endpoints (consider restricting in production)
+        "/actuator/health",
+        "/actuator/info"
     };
 
     /**

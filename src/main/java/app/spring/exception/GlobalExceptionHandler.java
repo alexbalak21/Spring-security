@@ -17,6 +17,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Global exception handler that processes exceptions across the entire application.
+ * Provides consistent error responses for different types of exceptions.
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 

@@ -14,12 +14,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +29,10 @@ import java.util.stream.Collectors;
  * Controller handling authentication-related endpoints.
  * Provides login and registration functionality.
  */
+/**
+ * Controller handling authentication-related endpoints including user registration and login.
+ * All endpoints are publicly accessible.
+ */
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -38,6 +41,13 @@ public class AuthController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Constructor for dependency injection.
+     *
+     * @param authenticationManager Handles the authentication process
+     * @param userRepository Repository for user data access
+     * @param passwordEncoder Encoder for password hashing
+     */
     public AuthController(AuthenticationManager authenticationManager,
                          UserRepository userRepository,
                          PasswordEncoder passwordEncoder) {
@@ -47,12 +57,15 @@ public class AuthController {
     }
 
     /**
-     * Registers a new user.
+     * Registers a new user with the provided credentials.
+     * Validates the request and ensures the username is unique.
      *
-     * @param registerRequest The registration request containing user details
-     * @return ResponseEntity with success message if registration is successful
+     * @param registerRequest The registration request containing username and password
+     * @return ResponseEntity with the created user's details (excluding password)
+     * @throws ResponseStatusException with CONFLICT status if username already exists
      */
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
         // Check if username is already taken
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
