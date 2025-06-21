@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,9 +26,13 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsername(),
                         loginRequest.getPassword()
-                ));
+                )
+        );
+        
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        //RETURN USER DETAILS
-        return ResponseEntity.ok(new HashMap<>());
+        
+        Map<String, String> response = new HashMap<>();
+        response.put("username", authentication.getName());
+        return ResponseEntity.ok(response);
     }
 }
