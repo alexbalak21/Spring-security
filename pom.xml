@@ -8,10 +8,10 @@
 		<version>3.5.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>spring-securty</artifactId>
+	<groupId>app</groupId>
+	<artifactId>Spring-security</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-securty</name>
+	<name>Spring-security</name>
 	<description>Spring Security &amp; Spring Boot</description>
 	<url/>
 	<licenses>
