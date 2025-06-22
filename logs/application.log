@@ -789,3 +789,57 @@ Caused by: app.spring.exception.UserNotFoundException: User not found with usern
 2025-06-21T16:12:50.913+02:00  WARN 10236 --- [Spring-security] [SpringApplicationShutdownHook] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
 2025-06-21T16:12:50.917+02:00  INFO 10236 --- [Spring-security] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2025-06-21T16:12:50.922+02:00  INFO 10236 --- [Spring-security] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-22T02:52:41.848+02:00  INFO 7240 --- [Spring-security] [restartedMain] app.spring.Application                   : Starting Application using Java 24.0.1 with PID 7240 (F:\DEV\Spring-security\target\classes started by ALEX in F:\DEV\Spring-security)
+2025-06-22T02:52:41.853+02:00 DEBUG 7240 --- [Spring-security] [restartedMain] app.spring.Application                   : Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-06-22T02:52:41.856+02:00  INFO 7240 --- [Spring-security] [restartedMain] app.spring.Application                   : The following 1 profile is active: "dev"
+2025-06-22T02:52:42.168+02:00  INFO 7240 --- [Spring-security] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-22T02:52:42.169+02:00  INFO 7240 --- [Spring-security] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-22T02:52:45.953+02:00  INFO 7240 --- [Spring-security] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-22T02:52:46.091+02:00  INFO 7240 --- [Spring-security] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 114 ms. Found 1 JPA repository interface.
+2025-06-22T02:52:47.474+02:00  INFO 7240 --- [Spring-security] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-22T02:52:47.501+02:00  INFO 7240 --- [Spring-security] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-22T02:52:47.502+02:00  INFO 7240 --- [Spring-security] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-06-22T02:52:47.604+02:00  INFO 7240 --- [Spring-security] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-22T02:52:47.605+02:00  INFO 7240 --- [Spring-security] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5435 ms
+2025-06-22T02:52:48.303+02:00  INFO 7240 --- [Spring-security] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-22T02:52:48.404+02:00  INFO 7240 --- [Spring-security] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-06-22T02:52:48.476+02:00  INFO 7240 --- [Spring-security] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-22T02:52:49.043+02:00  INFO 7240 --- [Spring-security] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-22T02:52:49.102+02:00  INFO 7240 --- [Spring-security] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-22T02:52:49.521+02:00  INFO 7240 --- [Spring-security] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:securitydb user=SA
+2025-06-22T02:52:49.524+02:00  INFO 7240 --- [Spring-security] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-22T02:52:49.571+02:00  WARN 7240 --- [Spring-security] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-22T02:52:49.616+02:00  INFO 7240 --- [Spring-security] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-22T02:52:51.511+02:00  INFO 7240 --- [Spring-security] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-22T02:52:51.629+02:00  INFO 7240 --- [Spring-security] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-22T02:52:52.432+02:00  INFO 7240 --- [Spring-security] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-06-22T02:52:52.434+02:00  WARN 7240 --- [Spring-security] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-06-22T02:52:52.772+02:00  WARN 7240 --- [Spring-security] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-22T02:52:53.703+02:00  INFO 7240 --- [Spring-security] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-06-22T02:52:54.072+02:00 DEBUG 7240 --- [Spring-security] [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-06-22T02:52:55.070+02:00  INFO 7240 --- [Spring-security] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:securitydb'
+2025-06-22T02:52:55.175+02:00  INFO 7240 --- [Spring-security] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-22T02:52:55.409+02:00  INFO 7240 --- [Spring-security] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-06-22T02:52:55.440+02:00  INFO 7240 --- [Spring-security] [restartedMain] app.spring.Application                   : Started Application in 15.464 seconds (process running for 18.995)
+2025-06-22T02:52:56.213+02:00  INFO 7240 --- [Spring-security] [RMI TCP Connection(3)-26.27.72.115] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-22T02:52:56.213+02:00  INFO 7240 --- [Spring-security] [RMI TCP Connection(3)-26.27.72.115] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-22T02:52:56.222+02:00  INFO 7240 --- [Spring-security] [RMI TCP Connection(3)-26.27.72.115] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2025-06-22T02:53:51.262+02:00 DEBUG 7240 --- [Spring-security] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/login
+2025-06-22T02:53:51.395+02:00 DEBUG 7240 --- [Spring-security] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-06-22T02:53:51.421+02:00 DEBUG 7240 --- [Spring-security] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/login
+2025-06-22T02:53:52.381+02:00 DEBUG 7240 --- [Spring-security] [http-nio-8080-exec-1] o.s.s.a.dao.DaoAuthenticationProvider    : Failed to find user 'testuser'
+2025-06-22T02:53:52.382+02:00 DEBUG 7240 --- [Spring-security] [http-nio-8080-exec-1] o.s.s.authentication.ProviderManager     : Authentication failed with provider DaoAuthenticationProvider since Bad credentials
+2025-06-22T02:53:52.436+02:00  WARN 7240 --- [Spring-security] [http-nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.security.authentication.BadCredentialsException: Bad credentials]
+2025-06-22T03:17:01.682+02:00  INFO 7240 --- [Spring-security] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-22T03:17:01.695+02:00  INFO 7240 --- [Spring-security] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-22T03:17:01.709+02:00  INFO 7240 --- [Spring-security] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-22T03:17:01.731+02:00  WARN 7240 --- [Spring-security] [SpringApplicationShutdownHook] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-232]
+2025-06-22T03:17:01.733+02:00  INFO 7240 --- [Spring-security] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-22T03:17:01.738+02:00  INFO 7240 --- [Spring-security] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
